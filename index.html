@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sean Brennan</title>
+<meta name="description" content="Sean Brennan — software engineer. Modernizing legacy .NET at Legacy Upsize, building RUavailable.">
+<meta name="theme-color" content="#0b0c0e">
+<meta property="og:title" content="Sean Brennan">
+<meta property="og:description" content="Software engineer. Fixes decades of tech debt, ships the rewrite that finally works.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0c0e'/%3E%3Ctext x='32' y='43' font-family='monospace' font-size='26' fill='%234fd1ae' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0b0c0e;
+    --panel: #14161a;
+    --panel-2: #1b1e24;
+    --text: #edeef0;
+    --muted: #8a8f98;
+    --rust: #e2604a;
+    --mint: #4fd1ae;
+    --amber: #f5b942;
+    --line: #24272e;
+    --font-mono: "Cascadia Code", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --font-sans: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--mint); color: var(--bg); }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--panel-2); border-radius: 6px; }
+  html { scrollbar-color: var(--panel-2) var(--bg); }
+
+  a { color: inherit; text-decoration: none; }
+
+  :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  /* header */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11, 12, 14, 0.75);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  header.site .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1.1rem;
+  }
+  .brand {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+  }
+  .brand .tilde { color: var(--muted); }
+  .brand .name { color: var(--mint); }
+  nav.main ul {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  nav.main a {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: color 0.15s ease;
+  }
+  nav.main a:hover { color: var(--text); }
+
+  /* hero */
+  .hero {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 4rem;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--amber);
+    margin-bottom: 1.25rem;
+  }
+  .eyebrow-type {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    border-right: 2px solid var(--amber);
+    width: 0;
+    animation: type-eyebrow 1s steps(8, end) 0.3s forwards,
+               blink-caret 0.8s step-end infinite;
+  }
+  @keyframes type-eyebrow { from { width: 0; } to { width: 8ch; } }
+  @keyframes blink-caret { 50% { border-color: transparent; } }
+
+  .diff-title {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 4.4vw, 2.9rem);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .diff-title .rm {
+    display: block;
+    color: var(--rust);
+    text-decoration: line-through;
+    text-decoration-color: rgba(226, 96, 74, 0.55);
+    text-decoration-thickness: 2px;
+  }
+  .diff-title .add {
+    display: block;
+    color: var(--mint);
+  }
+
+  .author-line {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-top: 1.5rem;
+  }
+  .author-line strong { color: var(--text); font-weight: 600; }
+  .author-line a { border-bottom: 1px dotted var(--line); transition: color 0.15s ease; }
+  .author-line a:hover { color: var(--amber); border-bottom-color: var(--amber); }
+
+  .subtitle {
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: #c7cad0;
+    max-width: 36em;
+    margin-top: 1.4rem;
+  }
+  .subtitle a { color: var(--mint); border-bottom: 1px solid rgba(79,209,174,0.35); }
+  .subtitle a:hover { border-bottom-color: var(--mint); }
+
+  .scroll-cue {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 3rem;
+    opacity: 0.7;
+  }
+
+  /* sections */
+  section { padding-block: clamp(3rem, 8vw, 6rem); }
+  .section-title {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    margin: 0 0 2.25rem;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.in-view { opacity: 1; transform: none; }
+
+  /* log / commit graph */
+  .log {
+    position: relative;
+    padding-left: 2rem;
+    border-top: 1px solid var(--line);
+    padding-top: 2.25rem;
+  }
+  .log::before {
+    content: '';
+    position: absolute;
+    left: 0.4rem;
+    top: 2.6rem;
+    bottom: 0.4rem;
+    width: 2px;
+    background: var(--line);
+  }
+  details.commit {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  details.commit::before {
+    content: '';
+    position: absolute;
+    left: -1.66rem;
+    top: 0.4rem;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--amber);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  details.commit[open]::before,
+  details.commit:hover::before {
+    border-color: var(--mint);
+    background: var(--mint);
+  }
+  details.commit summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  details.commit summary::-webkit-details-marker { display: none; }
+  .commit-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .commit-hash {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .commit-decorate {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--amber);
+  }
+  .commit-toggle {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    transition: transform 0.2s ease;
+  }
+  details.commit[open] .commit-toggle { transform: rotate(90deg); color: var(--mint); }
+  .commit-message {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-top: 0.4rem;
+  }
+  .diff-card {
+    margin-top: 1rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.1rem 1.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+  .diff-card .line-rm { color: var(--rust); display: block; }
+  .diff-card .line-add { color: var(--mint); display: block; }
+  .diff-card .meta {
+    margin-top: 0.6rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  /* pinned */
+  .pinned-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.6rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover { border-color: var(--mint); transform: translateY(-3px); }
+  .card h3 {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    margin: 0 0 0.6rem;
+  }
+  .card p {
+    color: #c7cad0;
+    font-size: 0.96rem;
+    line-height: 1.65;
+    margin: 0 0 1rem;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--mint);
+    background: rgba(79, 209, 174, 0.08);
+    border: 1px solid rgba(79, 209, 174, 0.25);
+    padding: 0.18rem 0.55rem;
+    border-radius: 4px;
+  }
+  .status {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--amber);
+  }
+
+  /* contact / footer */
+  footer.site { border-top: 1px solid var(--line); padding-block: clamp(3rem, 7vw, 5rem); }
+  .terminal p {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin: 0 0 0.55rem;
+  }
+  .terminal .prompt { color: var(--mint); }
+  .terminal a { color: var(--text); border-bottom: 1px dotted var(--line); }
+  .terminal a:hover { color: var(--amber); border-bottom-color: var(--amber); }
+  .cursor {
+    display: inline-block;
+    color: var(--mint);
+    animation: blink-cursor 1s step-end infinite;
+  }
+  @keyframes blink-cursor { 50% { opacity: 0; } }
+  .fineprint {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 2.25rem;
+    opacity: 0.75;
+  }
+
+  /* easter egg overlay */
+  .egg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 12, 14, 0.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 1.5rem;
+  }
+  .egg-overlay.show { display: flex; }
+  .egg-box {
+    background: var(--panel);
+    border: 1px solid var(--mint);
+    border-radius: 10px;
+    padding: 1.75rem 2rem;
+    max-width: 480px;
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    box-shadow: 0 0 40px rgba(79, 209, 174, 0.12);
+  }
+  .egg-box .line-rm { color: var(--rust); display: block; }
+  .egg-box .line-add { color: var(--mint); display: block; }
+  .egg-box .line-muted { color: var(--muted); display: block; }
+  .egg-hint { margin-top: 1.25rem; font-size: 0.78rem; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .pinned-grid { grid-template-columns: 1fr; }
+    .commit-toggle { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .eyebrow-type { animation: none; width: 8ch; border-right: none; }
+    .cursor { animation: none; opacity: 1; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .card { transition: none; }
+    .card:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand"><span class="tilde">~/</span><span class="name">sean</span></div>
+    <nav class="main">
+      <ul>
+        <li><a href="#pinned">work</a></li>
+        <li><a href="#log">log</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow"><span class="eyebrow-type">$ whoami</span></p>
+      <h1 class="diff-title">
+        <span class="rm">- fixes decades of tech debt</span>
+        <span class="add">+ ships the rewrite that finally works</span>
+      </h1>
+      <p class="author-line">Author: <strong>Sean Brennan</strong> &lt;<a href="mailto:brennan.sean@gmail.com">brennan.sean@gmail.com</a>&gt;</p>
+      <p class="subtitle">
+        I build and rescue software. Lately that means modernizing legacy .NET systems at
+        <a href="#pinned">Legacy&nbsp;Upsize</a>, and building
+        <a href="#pinned">RUavailable</a> — scheduling software where the person booking
+        never has to make an account.
+      </p>
+      <p class="scroll-cue">↓ scroll for the log</p>
+    </div>
+  </section>
+
+  <section id="log">
+    <div class="wrap">
+      <p class="eyebrow reveal">$ git log --oneline --graph --decorate</p>
+      <h2 class="section-title reveal">The log</h2>
+
+      <div class="log">
+        <details class="commit reveal" open>
+          <summary>
+            <div class="commit-head">
+              <span class="commit-hash">c0ffee2</span>
+              <span class="commit-decorate">HEAD -&gt; main, origin/main</span>
+              <span class="commit-toggle">▸</span>
+            </div>
+            <p class="commit-message">feat(ruavailable): scheduling without the account wall</p>
+          </summary>
+          <div class="diff-card">
+            <span class="line-rm">- book anything → make an account → verify email → forget password → give up</span>
+            <span class="line-add">+ book anything. that's the whole flow.</span>
+            <p class="meta">in progress · C# · Vue · PostgreSQL · Azure</p>
+          </div>
+        </details>
+
+        <details class="commit reveal">
+          <summary>
+            <div class="commit-head">
+              <span class="commit-hash">a3f9c2e</span>
+              <span class="commit-decorate">tag: founded-2026</span>
+              <span class="commit-toggle">▸</span>
+            </div>
+            <p class="commit-message">feat(legacy-upsize): founded a company to fix other people's WebForms</p>
+          </summary>
+          <div class="diff-card">
+            <span class="line-rm">- one more year of "we'll modernize it eventually"</span>
+            <span class="line-add">+ a migration plan, a test suite, and a deploy button</span>
+            <p class="meta">.NET Framework → .NET · WebForms → modern web · consulting</p>
+          </div>
+        </details>
+
+        <details class="commit reveal">
+          <summary>
+            <div class="commit-head">
+              <span class="commit-hash">1a2b3c4</span>
+              <span class="commit-decorate">(root-commit)</span>
+              <span class="commit-toggle">▸</span>
+            </div>
+            <p class="commit-message">chore: years in the Microsoft stack, before any of this had a name</p>
+          </summary>
+          <div class="diff-card">
+            <span class="line-rm">- waiting on IIS to restart</span>
+            <span class="line-add">+ still here, mostly by choice</span>
+            <p class="meta">C# · .NET · SQL Server</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="pinned">
+    <div class="wrap">
+      <p class="eyebrow reveal">$ ls ~/pinned --stars</p>
+      <h2 class="section-title reveal">Pinned</h2>
+      <div class="pinned-grid">
+        <div class="card reveal">
+          <h3>Legacy Upsize</h3>
+          <p>Legacy .NET modernization, run like a proper migration — read the old system first, write the tests, then ship the rewrite.</p>
+          <div class="tags">
+            <span class="tag">.NET Framework → .NET</span>
+            <span class="tag">WebForms</span>
+            <span class="tag">Consulting</span>
+          </div>
+          <span class="status">● new — 2026</span>
+        </div>
+        <div class="card reveal">
+          <h3>RUavailable</h3>
+          <p>Calendly-shaped scheduling software. The business pays a subscription; the person booking never creates an account.</p>
+          <div class="tags">
+            <span class="tag">C#</span>
+            <span class="tag">Vue</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Azure</span>
+          </div>
+          <span class="status">● in progress</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site" id="contact">
+  <div class="wrap">
+    <p class="eyebrow reveal">$ cat contact.txt</p>
+    <div class="terminal reveal">
+      <p><span class="prompt">sean@seanb:~$</span> mailto <a href="mailto:brennan.sean@gmail.com">brennan.sean@gmail.com</a></p>
+      <p><span class="prompt">sean@seanb:~$</span> open <a href="https://github.com/sbrennan" target="_blank" rel="noopener">github.com/sbrennan</a></p>
+      <p><span class="prompt">sean@seanb:~$</span> <span class="cursor">▌</span></p>
+    </div>
+    <p class="fineprint">© 2026 Sean Brennan — built by hand, reviewed by an AI that never gets tired of code review.</p>
+  </div>
+</footer>
+
+<div class="egg-overlay" id="egg">
+  <div class="egg-box">
+    <span class="line-rm">$ sudo rm -rf legacy-systems/</span>
+    <span class="line-muted">Password: ********</span>
+    <span class="line-add">sudo: some things take longer than a keystroke.</span>
+    <p class="egg-hint">(click anywhere to close)</p>
+  </div>
+</div>
+
+<script>
+  // scroll-reveal
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function (el) { observer.observe(el); });
+  })();
+
+  // konami code easter egg
+  (function () {
+    var seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    var pos = 0;
+    var egg = document.getElementById('egg');
+    var hideTimer;
+
+    function showEgg() {
+      egg.classList.add('show');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hideEgg, 6000);
+    }
+    function hideEgg() { egg.classList.remove('show'); }
+
+    window.addEventListener('keydown', function (e) {
+      pos = (e.key === seq[pos]) ? pos + 1 : (e.key === seq[0] ? 1 : 0);
+      if (pos === seq.length) { pos = 0; showEgg(); }
+    });
+    egg.addEventListener('click', hideEgg);
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') hideEgg();
+    });
+  })();
+</script>
+
+</body>
+</html>
