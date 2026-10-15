@@ -4,576 +4,455 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sean Brennan</title>
-<meta name="description" content="Sean Brennan — software engineer. Modernizing legacy .NET at Legacy Upsize, building RUavailable.">
-<meta name="theme-color" content="#0b0c0e">
+<meta name="description" content="Sean Brennan, senior software engineer. Legacy modernization, .NET and Azure, AI integration.">
+<meta name="theme-color" content="#eef1f4">
 <meta property="og:title" content="Sean Brennan">
-<meta property="og:description" content="Software engineer. Fixes decades of tech debt, ships the rewrite that finally works.">
-<meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0c0e'/%3E%3Ctext x='32' y='43' font-family='monospace' font-size='26' fill='%234fd1ae' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E">
+<meta property="og:description" content="Senior software engineer who modernizes mission-critical .NET platforms while they stay in production.">
+<meta property="og:type" content="profile">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a2433'/%3E%3Ctext x='32' y='43' font-family='sans-serif' font-weight='700' font-size='28' fill='%23eef1f4' text-anchor='middle'%3ESB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0b0c0e;
-    --panel: #14161a;
-    --panel-2: #1b1e24;
-    --text: #edeef0;
-    --muted: #8a8f98;
-    --rust: #e2604a;
-    --mint: #4fd1ae;
-    --amber: #f5b942;
-    --line: #24272e;
-    --font-mono: "Cascadia Code", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    --font-sans: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+    --paper: #eef1f4;
+    --sheet: #f8fafb;
+    --ink: #1a2433;
+    --ink-soft: #4a5566;
+    --legacy: #776c5a;
+    --cobalt: #2b59c3;
+    --rule: #c9d1db;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --text: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --measure: 40rem;
   }
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #121821;
+      --sheet: #18202b;
+      --ink: #e4e9f0;
+      --ink-soft: #a4afbf;
+      --legacy: #9c9282;
+      --cobalt: #8fb0ff;
+      --rule: #2c3644;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
 
   body {
     margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
   }
 
-  ::selection { background: var(--mint); color: var(--bg); }
+  ::selection { background: var(--cobalt); color: var(--sheet); }
 
-  ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--panel-2); border-radius: 6px; }
-  html { scrollbar-color: var(--panel-2) var(--bg); }
-
-  a { color: inherit; text-decoration: none; }
+  a {
+    color: var(--cobalt);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  a:hover { text-decoration-thickness: 2px; }
 
   :focus-visible {
-    outline: 2px solid var(--amber);
+    outline: 2px solid var(--cobalt);
     outline-offset: 3px;
     border-radius: 2px;
   }
 
-  .wrap {
-    max-width: 880px;
-    margin-inline: auto;
-    padding-inline: clamp(1.25rem, 4vw, 2rem);
+  .page {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 7vw, 6rem) clamp(1rem, 5vw, 4rem) 4rem;
   }
 
-  /* header */
-  header.site {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(11, 12, 14, 0.75);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
+  /* Header */
+
+  .masthead { margin-bottom: clamp(3rem, 8vw, 5.5rem); }
+
+  .masthead h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(3rem, 11vw, 7.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.045em;
   }
-  header.site .wrap {
+
+  .role {
+    margin: 1.25rem 0 0;
+    max-width: var(--measure);
+    font-family: var(--display);
+    font-size: clamp(1.125rem, 2.4vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--ink-soft);
+  }
+
+  .contact {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-block: 1.1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--display);
+    font-size: 0.9375rem;
   }
-  .brand {
-    font-family: var(--font-mono);
+
+  /* Sections */
+
+  section { margin-top: clamp(3rem, 7vw, 4.5rem); }
+
+  h2 {
+    margin: 0 0 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--display);
+    font-size: 1.5rem;
     font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
   }
-  .brand .tilde { color: var(--muted); }
-  .brand .name { color: var(--mint); }
-  nav.main ul {
-    display: flex;
-    gap: 1.5rem;
+
+  .profile p {
+    max-width: var(--measure);
+    margin: 0;
+    font-size: 1.1875rem;
+    line-height: 1.65;
+  }
+
+  /* Impact ledger: the old state struck through, the new state set large */
+
+  .ledger {
     margin: 0;
     padding: 0;
     list-style: none;
   }
-  nav.main a {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--muted);
-    transition: color 0.15s ease;
-  }
-  nav.main a:hover { color: var(--text); }
 
-  /* hero */
-  .hero {
-    min-height: calc(100vh - 60px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-block: 4rem;
+  .ledger li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+    gap: 0.25rem 2.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
   }
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    color: var(--amber);
-    margin-bottom: 1.25rem;
-  }
-  .eyebrow-type {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    vertical-align: bottom;
-    border-right: 2px solid var(--amber);
-    width: 0;
-    animation: type-eyebrow 1s steps(8, end) 0.3s forwards,
-               blink-caret 0.8s step-end infinite;
-  }
-  @keyframes type-eyebrow { from { width: 0; } to { width: 8ch; } }
-  @keyframes blink-caret { 50% { border-color: transparent; } }
+  .ledger li:first-child { padding-top: 0.25rem; }
 
-  .diff-title {
-    font-family: var(--font-mono);
+  .shift { margin: 0; font-family: var(--display); }
+
+  .shift del {
+    display: block;
+    color: var(--legacy);
+    font-size: 1rem;
+    text-decoration-thickness: 1px;
+  }
+
+  .shift ins {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--cobalt);
+    font-size: clamp(1.625rem, 3.6vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+  }
+
+  .ledger h3 {
+    margin: 0 0 0.25rem;
+    font-family: var(--display);
+    font-size: 1.0625rem;
     font-weight: 600;
-    font-size: clamp(1.5rem, 4.4vw, 2.9rem);
-    line-height: 1.35;
-    letter-spacing: -0.01em;
+  }
+
+  .ledger p { margin: 0; color: var(--ink-soft); }
+
+  /* Experience */
+
+  .job {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 0 2.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .job:first-of-type { padding-top: 0.25rem; }
+
+  .when {
+    margin: 0.2rem 0 0;
+    font-family: var(--display);
+    font-size: 0.9375rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+  }
+
+  .job h3 {
     margin: 0;
-  }
-  .diff-title .rm {
-    display: block;
-    color: var(--rust);
-    text-decoration: line-through;
-    text-decoration-color: rgba(226, 96, 74, 0.55);
-    text-decoration-thickness: 2px;
-  }
-  .diff-title .add {
-    display: block;
-    color: var(--mint);
-  }
-
-  .author-line {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-    color: var(--muted);
-    margin-top: 1.5rem;
-  }
-  .author-line strong { color: var(--text); font-weight: 600; }
-  .author-line a { border-bottom: 1px dotted var(--line); transition: color 0.15s ease; }
-  .author-line a:hover { color: var(--amber); border-bottom-color: var(--amber); }
-
-  .subtitle {
-    font-size: 1.08rem;
-    line-height: 1.75;
-    color: #c7cad0;
-    max-width: 36em;
-    margin-top: 1.4rem;
-  }
-  .subtitle a { color: var(--mint); border-bottom: 1px solid rgba(79,209,174,0.35); }
-  .subtitle a:hover { border-bottom-color: var(--mint); }
-
-  .scroll-cue {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin-top: 3rem;
-    opacity: 0.7;
-  }
-
-  /* sections */
-  section { padding-block: clamp(3rem, 8vw, 6rem); }
-  .section-title {
-    font-family: var(--font-mono);
+    font-family: var(--display);
+    font-size: 1.375rem;
     font-weight: 600;
-    font-size: clamp(1.4rem, 3vw, 1.9rem);
-    margin: 0 0 2.25rem;
+    letter-spacing: -0.01em;
   }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+  .where {
+    margin: 0.1rem 0 0;
+    font-family: var(--display);
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
   }
-  .reveal.in-view { opacity: 1; transform: none; }
 
-  /* log / commit graph */
-  .log {
-    position: relative;
-    padding-left: 2rem;
-    border-top: 1px solid var(--line);
-    padding-top: 2.25rem;
+  .title {
+    margin: 0.5rem 0 0;
+    font-style: italic;
   }
-  .log::before {
-    content: '';
-    position: absolute;
-    left: 0.4rem;
-    top: 2.6rem;
-    bottom: 0.4rem;
-    width: 2px;
-    background: var(--line);
-  }
-  details.commit {
-    position: relative;
-    margin-bottom: 2rem;
-  }
-  details.commit::before {
-    content: '';
-    position: absolute;
-    left: -1.66rem;
-    top: 0.4rem;
-    width: 0.65rem;
-    height: 0.65rem;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--amber);
-    transition: border-color 0.2s ease, background 0.2s ease;
-  }
-  details.commit[open]::before,
-  details.commit:hover::before {
-    border-color: var(--mint);
-    background: var(--mint);
-  }
-  details.commit summary {
-    cursor: pointer;
+
+  .summary { margin: 0.75rem 0 0; }
+
+  .job ul {
+    margin: 1rem 0 0;
+    padding: 0;
     list-style: none;
   }
-  details.commit summary::-webkit-details-marker { display: none; }
-  .commit-head {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-  .commit-hash {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-  .commit-decorate {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--amber);
-  }
-  .commit-toggle {
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--muted);
-    transition: transform 0.2s ease;
-  }
-  details.commit[open] .commit-toggle { transform: rotate(90deg); color: var(--mint); }
-  .commit-message {
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--text);
-    margin-top: 0.4rem;
-  }
-  .diff-card {
-    margin-top: 1rem;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 1.1rem 1.3rem;
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    line-height: 1.75;
-  }
-  .diff-card .line-rm { color: var(--rust); display: block; }
-  .diff-card .line-add { color: var(--mint); display: block; }
-  .diff-card .meta {
-    margin-top: 0.6rem;
-    color: var(--muted);
-    font-size: 0.78rem;
+
+  .job li {
+    position: relative;
+    margin-top: 0.7rem;
+    padding-left: 1.25rem;
   }
 
-  /* pinned */
-  .pinned-grid {
+  .job li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--ink-soft);
+  }
+
+  .job li strong { font-weight: 600; }
+
+  .job-body { max-width: var(--measure); }
+
+  /* Skills */
+
+  .skills {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-  .card {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 1.6rem;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-  .card:hover { border-color: var(--mint); transform: translateY(-3px); }
-  .card h3 {
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
-    margin: 0 0 0.6rem;
-  }
-  .card p {
-    color: #c7cad0;
-    font-size: 0.96rem;
-    line-height: 1.65;
-    margin: 0 0 1rem;
-  }
-  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
-  .tag {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--mint);
-    background: rgba(79, 209, 174, 0.08);
-    border: 1px solid rgba(79, 209, 174, 0.25);
-    padding: 0.18rem 0.55rem;
-    border-radius: 4px;
-  }
-  .status {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--amber);
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 0.9rem 2.5rem;
+    margin: 0;
   }
 
-  /* contact / footer */
-  footer.site { border-top: 1px solid var(--line); padding-block: clamp(3rem, 7vw, 5rem); }
-  .terminal p {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-    color: var(--muted);
-    margin: 0 0 0.55rem;
-  }
-  .terminal .prompt { color: var(--mint); }
-  .terminal a { color: var(--text); border-bottom: 1px dotted var(--line); }
-  .terminal a:hover { color: var(--amber); border-bottom-color: var(--amber); }
-  .cursor {
-    display: inline-block;
-    color: var(--mint);
-    animation: blink-cursor 1s step-end infinite;
-  }
-  @keyframes blink-cursor { 50% { opacity: 0; } }
-  .fineprint {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin-top: 2.25rem;
-    opacity: 0.75;
+  .skills dt {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding-top: 0.1rem;
   }
 
-  /* easter egg overlay */
-  .egg-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(11, 12, 14, 0.94);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-    padding: 1.5rem;
-  }
-  .egg-overlay.show { display: flex; }
-  .egg-box {
-    background: var(--panel);
-    border: 1px solid var(--mint);
-    border-radius: 10px;
-    padding: 1.75rem 2rem;
-    max-width: 480px;
-    font-family: var(--font-mono);
-    font-size: 0.92rem;
-    line-height: 1.8;
-    box-shadow: 0 0 40px rgba(79, 209, 174, 0.12);
-  }
-  .egg-box .line-rm { color: var(--rust); display: block; }
-  .egg-box .line-add { color: var(--mint); display: block; }
-  .egg-box .line-muted { color: var(--muted); display: block; }
-  .egg-hint { margin-top: 1.25rem; font-size: 0.78rem; color: var(--muted); }
-
-  @media (max-width: 640px) {
-    .pinned-grid { grid-template-columns: 1fr; }
-    .commit-toggle { display: none; }
+  .skills dd {
+    margin: 0;
+    max-width: var(--measure);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .eyebrow-type { animation: none; width: 8ch; border-right: none; }
-    .cursor { animation: none; opacity: 1; }
-    .reveal { opacity: 1; transform: none; transition: none; }
-    .card { transition: none; }
-    .card:hover { transform: none; }
+  .education p { margin: 0; }
+  .education strong {
+    font-family: var(--display);
+    font-weight: 600;
+  }
+
+
+  @media (max-width: 44rem) {
+    .ledger li,
+    .job,
+    .skills { grid-template-columns: minmax(0, 1fr); }
+
+    .ledger p { margin-top: 0.5rem; }
+    .job { gap: 0.25rem; }
+    .when { margin: 0 0 0.25rem; }
+    .skills { gap: 0.2rem; }
+    .skills dd { margin-bottom: 0.9rem; }
+  }
+
+  @media print {
+    :root {
+      --paper: #fff;
+      --ink: #000;
+      --ink-soft: #333;
+      --cobalt: #1d3f91;
+      --rule: #bbb;
+    }
+    body { font-size: 10pt; line-height: 1.45; }
+    .page { padding: 0; max-width: none; }
+    .masthead { margin-bottom: 1.5rem; }
+    .masthead h1 { font-size: 34pt; }
+    section { margin-top: 1.25rem; }
+    .job, .ledger li { break-inside: avoid; padding: 0.75rem 0; }
+    a { color: inherit; text-decoration: none; }
   }
 </style>
 </head>
 <body>
+<div class="page">
 
-<header class="site">
-  <div class="wrap">
-    <div class="brand"><span class="tilde">~/</span><span class="name">sean</span></div>
-    <nav class="main">
-      <ul>
-        <li><a href="#pinned">work</a></li>
-        <li><a href="#log">log</a></li>
-        <li><a href="#contact">contact</a></li>
+  <header class="masthead">
+    <h1>Sean Brennan</h1>
+    <p class="role">Senior software engineer in legacy modernization, .NET and Azure, and AI integration</p>
+    <ul class="contact">
+      <li>Pittsburgh, PA (remote)</li>
+      <li><a href="mailto:brennan.sean@gmail.com">brennan.sean@gmail.com</a></li>
+      <li><a href="https://www.linkedin.com/in/seanlbrennan/">linkedin.com/in/seanlbrennan</a></li>
+    </ul>
+  </header>
+
+  <main>
+
+    <section class="profile" aria-labelledby="profile-heading">
+      <h2 id="profile-heading">Profile</h2>
+      <p>Senior software engineer and architect who modernizes mission-critical .NET platforms while they stay in production. Combines deep C#, SQL Server, PostgreSQL, and Azure expertise with a modern front-end stack (Vue 3, TypeScript) and current practice in AI integration (Model Context Protocol, Azure OpenAI), CI/CD, automated testing, and application security. Known for turning legacy systems into well-tested, observable cloud services for government, legal, and nonprofit organizations.</p>
+    </section>
+
+    <section aria-labelledby="impact-heading">
+      <h2 id="impact-heading">Selected impact</h2>
+      <ul class="ledger">
+        <li>
+          <p class="shift"><del>Overnight, never finished</del> <ins>12 minutes</ins></p>
+          <div>
+            <h3>Document export</h3>
+            <p>Re-engineered a document-export engine so the largest municipal code books (~1,500 sections, 5M characters) finish in ~12 minutes instead of running all night without completing.</p>
+          </div>
+        </li>
+        <li>
+          <p class="shift"><del>Code on public websites</del> <ins>Searchable by AI agents</ins></p>
+          <div>
+            <h3>AI-ready platform</h3>
+            <p>Launched a multi-tenant MCP and Azure OpenAI service that lets AI agents and a public chat assistant search and cite the codes of every enCodePlus jurisdiction from one deployment.</p>
+          </div>
+        </li>
+        <li>
+          <p class="shift"><del>Web Forms and SQL Server</del> <ins>.NET 10, Vue 3, PostgreSQL</ins></p>
+          <div>
+            <h3>Full-stack re-platforming</h3>
+            <p>Leading the rebuild of a legacy Web Forms and SQL Server product as a .NET 10 API, a Vue 3 front end, and PostgreSQL, with security scanning, coverage gates, and mutation testing built into CI from day one.</p>
+          </div>
+        </li>
+        <li>
+          <p class="shift"><del>807K mismatches</del> <ins>Zero mismatches</ins></p>
+          <div>
+            <h3>9.6M-record migration</h3>
+            <p>Consolidating a legacy WebForms system into a .NET 10 case-management platform through a resumable, 37-stage SQL migration with automated reconciliation.</p>
+          </div>
+        </li>
       </ul>
-    </nav>
-  </div>
-</header>
+    </section>
 
-<main>
-  <section class="hero">
-    <div class="wrap">
-      <p class="eyebrow"><span class="eyebrow-type">$ whoami</span></p>
-      <h1 class="diff-title">
-        <span class="rm">- fixes decades of tech debt</span>
-        <span class="add">+ ships the rewrite that finally works</span>
-      </h1>
-      <p class="author-line">Author: <strong>Sean Brennan</strong> &lt;<a href="mailto:brennan.sean@gmail.com">brennan.sean@gmail.com</a>&gt;</p>
-      <p class="subtitle">
-        I build and rescue software. Lately that means modernizing legacy .NET systems at
-        <a href="#pinned">Legacy&nbsp;Upsize</a>, and building
-        <a href="#pinned">RUavailable</a> — scheduling software where the person booking
-        never has to make an account.
-      </p>
-      <p class="scroll-cue">↓ scroll for the log</p>
-    </div>
-  </section>
+    <section aria-labelledby="experience-heading">
+      <h2 id="experience-heading">Professional experience</h2>
 
-  <section id="log">
-    <div class="wrap">
-      <p class="eyebrow reveal">$ git log --oneline --graph --decorate</p>
-      <h2 class="section-title reveal">The log</h2>
-
-      <div class="log">
-        <details class="commit reveal" open>
-          <summary>
-            <div class="commit-head">
-              <span class="commit-hash">c0ffee2</span>
-              <span class="commit-decorate">HEAD -&gt; main, origin/main</span>
-              <span class="commit-toggle">▸</span>
-            </div>
-            <p class="commit-message">feat(ruavailable): scheduling without the account wall</p>
-          </summary>
-          <div class="diff-card">
-            <span class="line-rm">- book anything → make an account → verify email → forget password → give up</span>
-            <span class="line-add">+ book anything. that's the whole flow.</span>
-            <p class="meta">in progress · C# · Vue · PostgreSQL · Azure</p>
-          </div>
-        </details>
-
-        <details class="commit reveal">
-          <summary>
-            <div class="commit-head">
-              <span class="commit-hash">a3f9c2e</span>
-              <span class="commit-decorate">tag: founded-2026</span>
-              <span class="commit-toggle">▸</span>
-            </div>
-            <p class="commit-message">feat(legacy-upsize): founded a company to fix other people's WebForms</p>
-          </summary>
-          <div class="diff-card">
-            <span class="line-rm">- one more year of "we'll modernize it eventually"</span>
-            <span class="line-add">+ a migration plan, a test suite, and a deploy button</span>
-            <p class="meta">.NET Framework → .NET · WebForms → modern web · consulting</p>
-          </div>
-        </details>
-
-        <details class="commit reveal">
-          <summary>
-            <div class="commit-head">
-              <span class="commit-hash">1a2b3c4</span>
-              <span class="commit-decorate">(root-commit)</span>
-              <span class="commit-toggle">▸</span>
-            </div>
-            <p class="commit-message">chore: years in the Microsoft stack, before any of this had a name</p>
-          </summary>
-          <div class="diff-card">
-            <span class="line-rm">- waiting on IIS to restart</span>
-            <span class="line-add">+ still here, mostly by choice</span>
-            <p class="meta">C# · .NET · SQL Server</p>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section id="pinned">
-    <div class="wrap">
-      <p class="eyebrow reveal">$ ls ~/pinned --stars</p>
-      <h2 class="section-title reveal">Pinned</h2>
-      <div class="pinned-grid">
-        <div class="card reveal">
-          <h3>Legacy Upsize</h3>
-          <p>Legacy .NET modernization, run like a proper migration — read the old system first, write the tests, then ship the rewrite.</p>
-          <div class="tags">
-            <span class="tag">.NET Framework → .NET</span>
-            <span class="tag">WebForms</span>
-            <span class="tag">Consulting</span>
-          </div>
-          <span class="status">● new — 2026</span>
+      <article class="job">
+        <p class="when"><time datetime="2022-06">Jun 2022</time> – present</p>
+        <div class="job-body">
+          <h3>enCodePlus</h3>
+          <p class="where">Remote</p>
+          <p class="title">Senior Software Engineer</p>
+          <p class="summary">Primary engineer for the SaaS platform that 200+ cities and counties use to draft, codify, and publish zoning, land-development, and municipal codes; author of roughly 95% of code changes since joining.</p>
+          <ul>
+            <li><strong>Platform re-architecture:</strong> Leading the rebuild of the legacy VB.NET Web Forms application as an ASP.NET Core (.NET 10) REST API and a Vue 3 + Vuetify + TypeScript front end, orchestrated with .NET Aspire. Includes a scripted SQL Server-to-PostgreSQL data migration with per-client databases, Entra ID sign-in with JWT-secured APIs, and 30+ rich-text editor plugins ported from CKEditor 4 to HugeRTE.</li>
+            <li><strong>Engineering standards on the new stack:</strong> GitHub Actions CI with Semgrep SAST, gitleaks, dependency audits, and Dependabot; coverage ratchets; Testcontainers database tests; Vitest and Playwright suites; and Stryker mutation testing. The new test tiers caught real data-loss bugs. Section export is 3–7x faster (PDF 108 s to 31 s) with a content-addressed export cache.</li>
+            <li><strong>AI services:</strong> Designed and shipped a multi-tenant .NET 10 service that exposes each jurisdiction’s published code to AI agents through the Model Context Protocol and powers an embeddable Azure OpenAI chat assistant on public code sites. Per-tenant API keys, rate limiting, and Key Vault–managed secrets let one deployment serve every client.</li>
+            <li><strong>Production readiness:</strong> Hardened that service with Polly retries and circuit breakers, OpenTelemetry tracing in Application Insights, health checks, an Entra ID–secured admin console for tenant onboarding and key rotation, and staging-slot deployments with a gated production swap.</li>
+            <li><strong>Performance:</strong> Rewrote hot paths in the HTML-to-Word export engine (eliminated an O(n³) section scan, added caching, batched layout passes) and confirmed the output was byte-identical before and after every change.</li>
+            <li><strong>Quality &amp; security on the current platform:</strong> Built Azure DevOps pipelines with precompile gates, SAST/SCA and secret scanning, SonarQube, and cross-tenant Playwright smoke tests; grew unit tests from 105 to 705; created a tiered penetration-testing harness (OWASP ZAP, ffuf, Nikto) that keeps active scans off production.</li>
+            <li><strong>Accessibility &amp; reach:</strong> Led WCAG/ARIA remediation and VPAT support for public code sites, including a CLI tool that applies accessibility fixes across hundreds of client sites at once. Added multilingual publishing with Google Cloud Translation.</li>
+            <li><strong>Document workflows:</strong> Round-trip tracked changes between the web editor and Microsoft Word; AI-ready exports; CloudWriter, WebPlan, and Knowledge Advisor features.</li>
+          </ul>
         </div>
-        <div class="card reveal">
-          <h3>RUavailable</h3>
-          <p>Calendly-shaped scheduling software. The business pays a subscription; the person booking never creates an account.</p>
-          <div class="tags">
-            <span class="tag">C#</span>
-            <span class="tag">Vue</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">Azure</span>
-          </div>
-          <span class="status">● in progress</span>
+      </article>
+
+      <article class="job">
+        <p class="when"><time datetime="2011">2011</time> – present</p>
+        <div class="job-body">
+          <h3>KidsVoice</h3>
+          <p class="where">Pittsburgh, PA</p>
+          <p class="title">Consulting Developer (2012 – present), Software Architect (2011 – 2012)</p>
+          <ul>
+            <li><strong>Architect and lead developer of AnyCase,</strong> the case-management platform used by attorneys and social workers delivering full-service child advocacy in five states.</li>
+            <li><strong>.NET 10 modernization:</strong> Leading the move from ASP.NET MVC on .NET Framework to ASP.NET Core on .NET 10: dependency injection, Dapper data access replacing LINQ to SQL, Entra ID (OpenID Connect) sign-in, and Azure SQL and Blob Storage.</li>
+            <li><strong>Legacy consolidation:</strong> Retiring the organization’s original WebForms system by merging its data and features into AnyCase. Built a restartable, 37-stage SQL migration pipeline (PowerShell runner with reset, resume, and logging) that moves 9.6M+ activity records and reconciles every one: duration mismatches went from 807K to zero.</li>
+            <li><strong>Performance at scale:</strong> Moved in-memory filtering into SQL and added targeted indexes so pages stay fast at ~10M activities; made report date filters index-friendly, cutting the 37-report suite from 126 s to 7 s with identical results.</li>
+            <li><strong>AI with HIPAA safeguards:</strong> Added Azure OpenAI summaries of case histories and attached documents (with Document Intelligence OCR for scanned PDFs), enforcing HIPAA and office access checks before any cached result and closing an HTML-injection path from uploaded documents.</li>
+            <li><strong>Team &amp; delivery:</strong> Led developers, QA, and customer support; built self-service BI reporting; introduced source control, CI, one-click deployments, and NUnit and Playwright test suites.</li>
+          </ul>
         </div>
-      </div>
-    </div>
-  </section>
-</main>
+      </article>
 
-<footer class="site" id="contact">
-  <div class="wrap">
-    <p class="eyebrow reveal">$ cat contact.txt</p>
-    <div class="terminal reveal">
-      <p><span class="prompt">sean@seanb:~$</span> mailto <a href="mailto:brennan.sean@gmail.com">brennan.sean@gmail.com</a></p>
-      <p><span class="prompt">sean@seanb:~$</span> open <a href="https://github.com/sbrennan" target="_blank" rel="noopener">github.com/sbrennan</a></p>
-      <p><span class="prompt">sean@seanb:~$</span> <span class="cursor">▌</span></p>
-    </div>
-    <p class="fineprint">© 2026 Sean Brennan — built by hand, reviewed by an AI that never gets tired of code review.</p>
-  </div>
-</footer>
+      <article class="job">
+        <p class="when"><time datetime="2021-10">Oct 2021</time> – <time datetime="2022-05">May 2022</time></p>
+        <div class="job-body">
+          <h3>CGI</h3>
+          <p class="where">San Bernardino County, CA</p>
+          <p class="title">Lead Developer</p>
+          <ul>
+            <li>Led an Agile team building the Computer-Aided Mass Appraisal (CAMA) module of the county’s property-system modernization, which replaced a COBOL and VB6 client/server system with a .NET 6 Blazor WebAssembly application on Azure PaaS.</li>
+            <li>Delivered appraiser workflows (valuation queues, comparable search, value adjustments) using CQRS, Fluxor, and Azure SQL, with bUnit tests and static analysis in Azure DevOps CI/CD.</li>
+          </ul>
+        </div>
+      </article>
 
-<div class="egg-overlay" id="egg">
-  <div class="egg-box">
-    <span class="line-rm">$ sudo rm -rf legacy-systems/</span>
-    <span class="line-muted">Password: ********</span>
-    <span class="line-add">sudo: some things take longer than a keystroke.</span>
-    <p class="egg-hint">(click anywhere to close)</p>
-  </div>
+      <article class="job">
+        <p class="when"><time datetime="2012">2012</time> – <time datetime="2021">2021</time></p>
+        <div class="job-body">
+          <h3>NTT DATA (formerly Dell Services)</h3>
+          <p class="where">Plano, TX</p>
+          <p class="title">Software Development Senior Consultant</p>
+          <ul>
+            <li>Architected Nucleus, a customer self-service portal for provisioning virtual machines and ordering services, with REST APIs and integrations to ServiceNow, VMware, Zenoss, Azure, and AWS.</li>
+            <li>Established SDLC standards (source control, CI, one-click deployments to Dev/QA/UAT) and mentored developers while coordinating with an offshore QA team.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section aria-labelledby="skills-heading">
+      <h2 id="skills-heading">Technical skills</h2>
+      <dl class="skills">
+        <dt>Languages</dt>
+        <dd>C#, TypeScript, JavaScript, SQL (T-SQL, PostgreSQL), Python, HTML/CSS, VB.NET</dd>
+        <dt>.NET &amp; web</dt>
+        <dd>.NET 10 / ASP.NET Core, .NET Aspire, Vue 3 / Vuetify / Vite, ASP.NET MVC &amp; Web Forms, Blazor WebAssembly, Dapper</dd>
+        <dt>Cloud &amp; DevOps</dt>
+        <dd>Azure (App Service, Azure SQL, Blob Storage, Key Vault, Table Storage, Entra ID / OpenID Connect, Application Insights / OpenTelemetry), Docker, GitHub Actions, Azure DevOps Pipelines, AWS</dd>
+        <dt>AI</dt>
+        <dd>Model Context Protocol (MCP) servers, Azure OpenAI (function calling, summarization), Azure AI Document Intelligence, AI-assisted development (Claude Code)</dd>
+        <dt>Testing &amp; quality</dt>
+        <dd>NUnit, MSTest, bUnit, Vitest, Playwright, Testcontainers, Stryker mutation testing, SonarQube, Roslyn analyzers</dd>
+        <dt>Security &amp; compliance</dt>
+        <dd>HIPAA access controls, Semgrep (SAST), gitleaks, dependency auditing, OWASP ZAP (DAST), WCAG 2.x / ARIA, VPAT</dd>
+        <dt>Architecture</dt>
+        <dd>Multi-tenant SaaS, REST APIs, backend-for-frontend, CQRS, resilience (Polly), legacy modernization, data migration, performance engineering</dd>
+      </dl>
+    </section>
+
+    <section class="education" aria-labelledby="education-heading">
+      <h2 id="education-heading">Education</h2>
+      <p><strong>B.S., Computer Systems</strong>, Grove City College, Grove City, PA</p>
+    </section>
+
+  </main>
+
+
 </div>
-
-<script>
-  // scroll-reveal
-  (function () {
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var items = document.querySelectorAll('.reveal');
-    if (reduced || !('IntersectionObserver' in window)) {
-      items.forEach(function (el) { el.classList.add('in-view'); });
-      return;
-    }
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    items.forEach(function (el) { observer.observe(el); });
-  })();
-
-  // konami code easter egg
-  (function () {
-    var seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-    var pos = 0;
-    var egg = document.getElementById('egg');
-    var hideTimer;
-
-    function showEgg() {
-      egg.classList.add('show');
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(hideEgg, 6000);
-    }
-    function hideEgg() { egg.classList.remove('show'); }
-
-    window.addEventListener('keydown', function (e) {
-      pos = (e.key === seq[pos]) ? pos + 1 : (e.key === seq[0] ? 1 : 0);
-      if (pos === seq.length) { pos = 0; showEgg(); }
-    });
-    egg.addEventListener('click', hideEgg);
-    window.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') hideEgg();
-    });
-  })();
-</script>
-
 </body>
 </html>
